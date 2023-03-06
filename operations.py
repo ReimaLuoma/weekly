@@ -26,12 +26,15 @@ def printRootMenu():
     print('*---------------------------------*')
 
     print('Select option:')
-    print('[1] Add person')
-    print('[2] Add task')
+    print('[1] Timetable')
+    print('[2] Tasks')
+    print('[3] Persons')
 
     print('*---------------------------------*')
 
     print('Enter your choice [number] >>')
+    option = input()
+    handleRootMenuChoice(option)
 
 def handleRootMenuChoice(option):
 
@@ -42,9 +45,11 @@ def handleRootMenuChoice(option):
 
     match option:
         case '1':
-            createPerson()
+            timetableMenu()
         case '2':
-            createTask()
+            taskMenu()
+        case '3':
+            personsMenu()
         case _:
             print('not really an option, is it?')
 
@@ -82,8 +87,18 @@ def createTask():
     print(name)
     print(desc)
 
-    addToTaskList({name, desc})
+    addToTaskList({'Name': name, 'Description': desc})
     print(taskList)
+
+def modifyTask():
+    print('*** MODIFY TASK ***')
+    print('')
+
+    i = 1
+
+    for task in taskList:
+        print('[{i}]',task.task)
+        i+1
 
 def addToPersonList(person):
 
@@ -104,3 +119,71 @@ def addToTaskList(task):
 
     taskList.append(task)
     taskList.sort()
+
+def timetableMenu():
+    
+    '''
+    Returns menu for timetable management
+    '''
+
+    print('*** TIMETABLE MENU ***')
+
+def taskMenu():
+
+    '''
+    Returns menu for task management
+    '''
+
+    print('*** TASK MENU ***')
+    print('')
+
+    print('Choose action:')
+    print ('[1] Add Task')
+    print ('[2] Modify Task')
+    print ('[3] Remove Task')
+    print ('[4] Show Tasks')
+    print ('[5] MAIN MENU')
+
+    print('')
+    print('choose action [number] >>')
+    option = input()
+
+    handleTaskMenuChoice(option)
+
+
+def handleTaskMenuChoice(option):
+
+    '''
+    Handles choice made in task menu
+    :param option: this is the choice made by user
+    '''
+
+    match option:
+        case '1':
+            createTask()
+        case '2':
+            modifyTask()
+        case '3':
+            print('to remove task')
+        case '4':
+            print('to show tasks')
+        case '5':
+            printRootMenu()
+        case _:
+            print('not really an option, is it?')
+
+def personsMenu():
+
+    '''
+    Returns manu for person management
+    '''
+
+    print('*** PERSON MENU ***')
+    print('')
+
+    print('Choose action:')
+    print ('[1] Add Person')
+    print ('[2] Modify Person')
+    print ('[3] Remove Person')
+    print ('[4] Show Persons')
+    print ('[5] MAIN MENU')
