@@ -83,7 +83,7 @@ def createTask():
     print(desc)
 
     addToTaskList({name, desc})
-    printList(taskList)
+    print(taskList)
 
 def addToPersonList(person):
 
@@ -104,12 +104,3 @@ def addToTaskList(task):
 
     taskList.append(task)
     taskList.sort()
-
-def printList(list):
-
-    '''
-    Prints list
-    :param list: this is the list to print
-    '''
-
-    print(list)
