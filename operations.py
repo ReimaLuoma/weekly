@@ -1,5 +1,6 @@
 import person
 import timetable
+import task
 
 taskList = []
 personList = []
@@ -69,37 +70,6 @@ def createPerson():
     print('_______________________')
     print('Added: ', newPerson)
 
-def createTask():
-
-    '''
-    Creates task with user input
-    name: name of the task
-    desc: description of the task
-    '''
-
-    print('Give name to the task >>')
-    name = input()
-    print('Give description for the task >>')
-    desc = input()
-
-    print('_______________________')
-    print('Create task:')
-    print(name)
-    print(desc)
-
-    addToTaskList({'Name': name, 'Description': desc})
-    print(taskList)
-
-def modifyTask():
-    print('*** MODIFY TASK ***')
-    print('')
-
-    i = 1
-
-    for task in taskList:
-        print('[{i}]',task.task)
-        i+1
-
 def addToPersonList(person):
 
     '''
@@ -150,6 +120,40 @@ def taskMenu():
 
     handleTaskMenuChoice(option)
 
+def createTask():
+
+    '''
+    Creates task with user input
+    name: name of the task
+    desc: description of the task
+    '''
+
+    print('Give name to the task >>')
+    name = input()
+    print('Give description for the task >>')
+    desc = input()
+    print('Give how long this task is going to take ([number] hours) >>')
+    amount = input()
+
+    print('_______________________')
+    print('Create task:')
+    print(name)
+    print(desc)
+
+    newTask = task.Task(name, amount, desc)
+
+    addToTaskList(newTask)
+    print(newTask)
+
+def modifyTask():
+    print('*** MODIFY TASK ***')
+    print('')
+
+    i = 1
+
+    for task in taskList:
+        print('[{i}]',task.task)
+        i+1
 
 def handleTaskMenuChoice(option):
 
