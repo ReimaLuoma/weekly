@@ -1,6 +1,9 @@
 import person
 import timetable
 
+taskList = []
+personList = []
+
 def initializeTimetable(name, days, start, end):
 
     '''
@@ -10,7 +13,7 @@ def initializeTimetable(name, days, start, end):
     :param start: this is when day starts in hours
     :param end: this is when day ends in hours
     '''
-    
+
     newTimetable = timetable.Timetable(name, days, start, end)
     print(newTimetable)
 
@@ -78,3 +81,35 @@ def createTask():
     print('Create task:')
     print(name)
     print(desc)
+
+    addToTaskList({name, desc})
+    printList(taskList)
+
+def addToPersonList(person):
+
+    '''
+    Adds person to person list
+    :param person: this is the person to add to the list
+    '''
+
+    personList.append(person)
+    personList.sort()
+
+def addToTaskList(task):
+
+    '''
+    Adds task to task list
+    :param task: this is the task to add to the list
+    '''
+
+    taskList.append(task)
+    taskList.sort()
+
+def printList(list):
+
+    '''
+    Prints list
+    :param list: this is the list to print
+    '''
+
+    print(list)
