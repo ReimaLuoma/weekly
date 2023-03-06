@@ -88,7 +88,6 @@ def addToTaskList(task):
     '''
 
     taskList.append(task)
-    taskList.sort()
 
 def timetableMenu():
     
@@ -152,8 +151,11 @@ def modifyTask():
     i = 1
 
     for task in taskList:
-        print('[{i}]',task.task)
-        i+1
+        print(i, task.task)
+        i += 1
+    
+    print('Choose Task for modifying [number] >>')
+    option = input()
 
 def handleTaskMenuChoice(option):
 
