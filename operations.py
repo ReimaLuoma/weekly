@@ -1,58 +1,12 @@
 import person
 import timetable
 import task
+import utils
 
 taskList = []
 personList = []
 
-def initializeTimetable(name, days, start, end):
-
-    '''
-    Initializes timetable
-    :param timetable: this is name of the timetable
-    :param days: this is how many days timetable has
-    :param start: this is when day starts in hours
-    :param end: this is when day ends in hours
-    '''
-
-    newTimetable = timetable.Timetable(name, days, start, end)
-    print(newTimetable)
-
-def printRootMenu():
-    
-    '''
-    Prints root menu
-    '''
-
-    print('*---------------------------------*')
-
-    print('Select option:')
-    print('[1] Timetable')
-    print('[2] Tasks')
-    print('[3] Persons')
-
-    print('*---------------------------------*')
-
-    print('Enter your choice [number] >>')
-    option = input()
-    handleRootMenuChoice(option)
-
-def handleRootMenuChoice(option):
-
-    '''
-    Handles choice made in root menu
-    :param option: this is the choice made by user
-    '''
-
-    match option:
-        case '1':
-            timetableMenu()
-        case '2':
-            taskMenu()
-        case '3':
-            personsMenu()
-        case _:
-            print('not really an option, is it?')
+#Person
 
 def createPerson():
 
@@ -80,44 +34,7 @@ def addToPersonList(person):
     personList.append(person)
     personList.sort()
 
-def addToTaskList(task):
-
-    '''
-    Adds task to task list
-    :param task: this is the task to add to the list
-    '''
-
-    taskList.append(task)
-
-def timetableMenu():
-    
-    '''
-    Returns menu for timetable management
-    '''
-
-    print('*** TIMETABLE MENU ***')
-
-def taskMenu():
-
-    '''
-    Returns menu for task management
-    '''
-
-    print('*** TASK MENU ***')
-    print('')
-
-    print('Choose action:')
-    print ('[1] Add Task')
-    print ('[2] Modify Task')
-    print ('[3] Remove Task')
-    print ('[4] Show Tasks')
-    print ('[5] MAIN MENU')
-
-    print('')
-    print('choose action [number] >>')
-    option = input()
-
-    handleTaskMenuChoice(option)
+#Task
 
 def createTask():
 
@@ -156,6 +73,88 @@ def modifyTask():
     
     print('Choose Task for modifying [number] >>')
     option = input()
+
+def addToTaskList(task):
+
+    '''
+    Adds task to task list
+    :param task: this is the task to add to the list
+    '''
+
+    taskList.append(task)    
+
+#Timetable
+
+def initializeTimetable(name, days, start, end):
+
+    '''
+    Initializes timetable
+    :param timetable: this is name of the timetable
+    :param days: this is how many days timetable has
+    :param start: this is when day starts in hours
+    :param end: this is when day ends in hours
+    '''
+
+    newTimetable = timetable.Timetable(name, days, start, end)
+    print(newTimetable)
+
+#General
+
+def printRootMenu():
+    
+    '''
+    Prints root menu
+    '''
+
+    print('*---------------------------------*')
+
+    print('Select option:')
+    print('[1] Timetable')
+    print('[2] Tasks')
+    print('[3] Persons')
+
+    print('*---------------------------------*')
+
+    print('Enter your choice [number] >>')
+    option = input()
+    handleRootMenuChoice(option)
+
+def handleRootMenuChoice(option):
+
+    '''
+    Handles choice made in root menu
+    :param option: this is the choice made by user
+    '''
+
+    match option:
+        case '1':
+            timetableMenu()
+        case '2':
+            taskMenu()
+        case '3':
+            utils.generateSubMenu('Person')
+        case _:
+            print('not really an option, is it?')
+
+def timetableMenu():
+    
+    '''
+    Returns menu for timetable management
+    '''
+
+    print('*** TIMETABLE MENU ***')
+
+def taskMenu():
+
+    '''
+    Returns menu for task management
+    '''
+
+    utils.generateSubMenu('Task')
+
+    option = input()
+
+    handleTaskMenuChoice(option)
 
 def handleTaskMenuChoice(option):
 
