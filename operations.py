@@ -59,6 +59,7 @@ def createTask():
     newTask = task.Task(name, amount, desc)
 
     addToTaskList(newTask)
+    utils.writeToJson('tasks', newTask)
     print(newTask)
 
 def modifyTask():
@@ -132,7 +133,7 @@ def handleRootMenuChoice(option):
         case '2':
             taskMenu()
         case '3':
-            utils.generateSubMenu('Person')
+            personsMenu()
         case _:
             print('not really an option, is it?')
 
@@ -151,9 +152,7 @@ def taskMenu():
     '''
 
     utils.generateSubMenu('Task')
-
     option = input()
-
     handleTaskMenuChoice(option)
 
 def handleTaskMenuChoice(option):
@@ -183,12 +182,5 @@ def personsMenu():
     Returns manu for person management
     '''
 
-    print('*** PERSON MENU ***')
-    print('')
-
-    print('Choose action:')
-    print ('[1] Add Person')
-    print ('[2] Modify Person')
-    print ('[3] Remove Person')
-    print ('[4] Show Persons')
-    print ('[5] MAIN MENU')
+    utils.generateSubMenu('Person')
+    option = input()

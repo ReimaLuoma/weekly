@@ -1,3 +1,5 @@
+import json
+
 def generateSubMenu(menu):
 
     '''
@@ -14,3 +16,40 @@ def generateSubMenu(menu):
     print ('[3] Remove {}'.format(menu))
     print ('[4] Show {}s'.format(menu))
     print ('[5] MAIN MENU')
+
+def writeToJson(type, object):
+
+    '''
+    Writes given object to JSON
+    :param type: type of data [timetable, task, person]
+    :param object: object to write to JSON file
+    '''
+
+    filename = 'data.json'
+
+    # open file and read
+    with open(filename, 'r') as file:
+        data = json.load(file)
+
+    # add new data to correct level
+    data[type].extend(object)
+
+    # overwrite with new data
+    with open(filename, 'w') as file:
+        json.dump(data, file)
+
+def getDataFromJson():
+
+    '''
+    Reads data from JSON
+    '''
+
+    filename = 'data.json'
+
+    # open file and read
+    with open(filename, 'r') as file:
+        data = json.load(file)
+
+    return data
+
+print(getDataFromJson())
