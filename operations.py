@@ -44,45 +44,28 @@ def createTask():
     desc: description of the task
     '''
 
-    print('Give name to the task >>')
-    name = input()
-    print('Give description for the task >>')
-    desc = input()
-    print('Give how long this task is going to take ([number] hours) >>')
-    amount = input()
+    name = input('Give name to the task >>')
+    desc = input('Give description for the task >>')
+    amount = input('Give how long this task is going to take ([number] hours) >>')
 
     print('_______________________')
     print('Create task:')
     print(name)
     print(desc)
 
-    newTask = task.Task(name, amount, desc)
+    newTask = task.Task(name, amount, desc).toObject()
+    print(type(newTask))
 
-    addToTaskList(newTask)
+    taskList.append(newTask)
     utils.writeToJson('tasks', newTask)
-    print(newTask)
 
 def modifyTask():
     print('*** MODIFY TASK ***')
     print('')
 
-    i = 1
-
-    for task in taskList:
-        print(i, task.task)
-        i += 1
-    
-    print('Choose Task for modifying [number] >>')
-    option = input()
-
-def addToTaskList(task):
-
-    '''
-    Adds task to task list
-    :param task: this is the task to add to the list
-    '''
-
-    taskList.append(task)    
+    for i in range (len(taskList)):
+        print(i, task)
+    option = input('Choose Task for modifying [number] >>')  
 
 #Timetable
 
@@ -116,8 +99,7 @@ def printRootMenu():
 
     print('*---------------------------------*')
 
-    print('Enter your choice [number] >>')
-    option = input()
+    option = input('Choose Task for modifying [number] >>')
     handleRootMenuChoice(option)
 
 def handleRootMenuChoice(option):
@@ -184,3 +166,5 @@ def personsMenu():
 
     utils.generateSubMenu('Person')
     option = input()
+
+createTask()

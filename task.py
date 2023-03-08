@@ -19,3 +19,16 @@ class Task:
         '''
 
         return f'{self.task}, {self.desc}, {self.amount} hours'
+    
+    def toObject(self):
+
+        '''
+        Returns object version of the task
+        '''
+        
+        object = {
+            "task": self.task,
+            "description": self.desc,
+            "duration": self.amount
+            }
+        return object

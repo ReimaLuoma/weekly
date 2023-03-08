@@ -32,7 +32,7 @@ def writeToJson(type, object):
         data = json.load(file)
 
     # add new data to correct level
-    data[type].extend(object)
+    data[type].append(object)
 
     # overwrite with new data
     with open(filename, 'w') as file:
@@ -51,5 +51,3 @@ def getDataFromJson():
         data = json.load(file)
 
     return data
-
-print(getDataFromJson())
