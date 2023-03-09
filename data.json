@@ -1,5 +1,11 @@
 {
-    "timetable": [], 
-    "tasks": [], 
-    "persons": []
+  "timetable": [],
+  "tasks": [
+    {
+      "task": "Clean Kitchen",
+      "description": "counters, sink, dishes etc",
+      "duration": "1"
+    }
+  ],
+  "persons": []
 }

@@ -51,3 +51,24 @@ def getDataFromJson():
         data = json.load(file)
 
     return data
+
+def removeDataFromJson(type, item):
+
+    '''
+    Removes data from JSON
+    :param type: type of data [timetable, task, person]
+    :param item: item to be removed from the list
+    '''
+
+    filename = 'data.json'
+
+    # open file and read
+    with open(filename, 'r') as file:
+        data = json.load(file)
+
+    # add new data to correct level
+    data[type].pop(item)
+
+    # overwrite with new data
+    with open(filename, 'w') as file:
+        json.dump(data, file)

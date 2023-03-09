@@ -44,9 +44,9 @@ def createTask():
     desc: description of the task
     '''
 
-    name = input('Give name to the task >>')
-    desc = input('Give description for the task >>')
-    amount = input('Give how long this task is going to take ([number] hours) >>')
+    name = input('Give name to the task >> ')
+    desc = input('Give description for the task >> ')
+    amount = input('Give how long this task is going to take ([number] hours) >> ')
 
     print('_______________________')
     print('Create task:')
@@ -54,18 +54,58 @@ def createTask():
     print(desc)
 
     newTask = task.Task(name, amount, desc).toObject()
-    print(type(newTask))
 
     taskList.append(newTask)
     utils.writeToJson('tasks', newTask)
 
 def modifyTask():
+    updateTaskList()
     print('*** MODIFY TASK ***')
     print('')
 
-    for i in range (len(taskList)):
-        print(i, task)
-    option = input('Choose Task for modifying [number] >>')  
+    if taskList:
+        for i in range (len(taskList)):
+            print(i, taskList[i]['task'])
+        option = input('Choose Task for modifying [number] >> ')
+    else:
+        print('No tasks to be found.')
+
+def updateTaskList():
+
+    '''
+    Updates taskList variable
+    '''
+
+    global taskList
+    taskList = utils.getDataFromJson()['tasks']
+
+def removeTaskInterface():
+
+    '''
+    Print out a list of tasks and prompt user to choose task to be removed
+    '''
+
+    if taskList:
+        for i in range (len(taskList)):
+            print(i, taskList[i]['task'])
+        option = input('Choose Task for removal [number] >> ')
+        removeItem('tasks', option)
+    else:
+        print('No tasks to be found.')
+
+def removeItem(type, index):
+
+    '''
+    Removes chosen item from given data type
+    :param type: type of the item to be removed [persons, tasks, timetable]
+    :param index: index of the item on type list
+    '''
+
+    if(type == 'tasks'):
+        item = index
+
+    utils.removeDataFromJson(type, item)
+    updateTaskList()
 
 #Timetable
 
@@ -99,7 +139,7 @@ def printRootMenu():
 
     print('*---------------------------------*')
 
-    option = input('Choose Task for modifying [number] >>')
+    option = input('Choose option for modifying [number] >>')
     handleRootMenuChoice(option)
 
 def handleRootMenuChoice(option):
@@ -150,7 +190,7 @@ def handleTaskMenuChoice(option):
         case '2':
             modifyTask()
         case '3':
-            print('to remove task')
+            removeTaskInterface()
         case '4':
             print('to show tasks')
         case '5':
@@ -166,5 +206,3 @@ def personsMenu():
 
     utils.generateSubMenu('Person')
     option = input()
-
-createTask()
