@@ -66,7 +66,7 @@ def removeDataFromJson(type, item):
     with open(filename, 'r') as file:
         data = json.load(file)
 
-    # add new data to correct level
+    # remove data from json
     data[type].pop(item)
 
     # overwrite with new data

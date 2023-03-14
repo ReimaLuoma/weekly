@@ -89,6 +89,7 @@ def removeTaskInterface():
         for i in range (len(taskList)):
             print(i, taskList[i]['task'])
         option = input('Choose Task for removal [number] >> ')
+        option = int(option)
         removeItem('tasks', option)
     else:
         print('No tasks to be found.')
