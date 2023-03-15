@@ -52,6 +52,28 @@ def getDataFromJson():
 
     return data
 
+def updateDataInJson(type, index, object):
+
+    '''
+    Updates data in json with given data.
+    :param type: type of data [str: timetable, task, person]
+    :param index: index of data slot that will be updated [int]
+    :param object: object to update the json with [object]
+    '''
+
+    filename = 'data.json'
+
+    # open file and read
+    with open(filename, 'r') as file:
+        data = json.load(file)
+
+    # update data from json
+    data[type][index] = object
+
+    # overwrite with new data
+    with open(filename, 'w') as file:
+        json.dump(data, file)
+
 def removeDataFromJson(type, item):
 
     '''

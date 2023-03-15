@@ -58,7 +58,7 @@ def createTask():
     taskList.append(newTask)
     utils.writeToJson('tasks', newTask)
 
-def modifyTask():
+def modifyTaskInterface():
     updateTaskList()
     print('*** MODIFY TASK ***')
     print('')
@@ -67,8 +67,18 @@ def modifyTask():
         for i in range (len(taskList)):
             print(i, taskList[i]['task'])
         option = input('Choose Task for modifying [number] >> ')
+        option = int(option)
     else:
         print('No tasks to be found.')
+
+def modifyTask(type, index):
+
+    '''
+    Modify given task based on type and index on type list
+    '''
+
+    if(type == 'tasks'):
+        item = index
 
 def updateTaskList():
 
@@ -189,7 +199,7 @@ def handleTaskMenuChoice(option):
         case '1':
             createTask()
         case '2':
-            modifyTask()
+            modifyTaskInterface()
         case '3':
             removeTaskInterface()
         case '4':
