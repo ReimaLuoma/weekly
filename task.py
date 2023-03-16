@@ -1,18 +1,16 @@
 import parent
 
 class Task(parent.Parent):
-    def __init__(self, name, time_allocation, desc):
+    def __init__(self, name, time_allocation: int, desc):
 
         '''
         Initializes Task object
         :param name: this is name of the task
-        :param time_allocation: this is time it takes for to finish the task
+        :param time_allocation: this is time it takes for to finish the task [int]
         :param desc: this is description of the the task
         '''
 
-        self.name = name
-
-        super().__init__(time_allocation, desc)
+        super().__init__(name)
         self.time_allocation = time_allocation
         self.desc = desc
 

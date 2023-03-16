@@ -41,7 +41,7 @@ def writeToJson(type, object):
 def getDataFromJson():
 
     '''
-    Reads data from JSON
+    Reads data from JSON and returns it
     '''
 
     filename = 'data.json'

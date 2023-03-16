@@ -12,8 +12,7 @@ class Timetable(parent.Parent):
         :param end: this is when day ends in hours (default is 24)
         '''
 
-        self.name = name
-        super().__init__(days, start, end)
+        super().__init__(name)
         self.days = days
         self.start = start
         self.end = end
@@ -24,9 +23,9 @@ class Timetable(parent.Parent):
         returns timetable as string
         '''
         
-        return f'{self.timetable} timetable with {self.days} days and each day has timeslots between {self.start} - {self.end}.'
+        return f'{self.name} timetable with {self.days} days and each day has timeslots between {self.start} - {self.end}.'
     
-    def addEvent(task, day, start_time):
+    def addEvent(self, task, person, day, start_time):
          
          '''
          Adds event to timetable based on given task.
@@ -37,6 +36,7 @@ class Timetable(parent.Parent):
 
          object = {
              "task": task,
+             "person": person,
              "day": day,
              "start": start_time,
              "status": "wip"
