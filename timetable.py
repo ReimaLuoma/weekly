@@ -1,5 +1,4 @@
 import parent
-import utils
 
 class Timetable(parent.Parent):
     def __init__(self, name, days: int = 7, start: int = 8, end: int = 24):
@@ -28,7 +27,7 @@ class Timetable(parent.Parent):
     def addEvent(self, task, person, day, start_time):
          
          '''
-         Adds event to timetable based on given task.
+         Returns an event as an object.
          :param task: this is the task to add as event to timetable
          :param day: this is the day the task is set to [int]
          :param start_time: this is start time of the task
@@ -42,7 +41,7 @@ class Timetable(parent.Parent):
              "status": "wip"
          }
 
-         utils.writeToJson("timetable", object)
+         return object
 
     def eventFinished(event):
         event.status = 'done'

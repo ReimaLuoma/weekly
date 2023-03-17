@@ -6,7 +6,7 @@ import utils
 # read data from json
 
 json = utils.getDataFromJson()
-print(json)
+print(json['timetable'])
 
 # init timetable
 
@@ -22,6 +22,7 @@ while True:
     print('[4] Show Timetable')
     option = input('Choose action [number] >> ')
     option = int(option)
+    print('')
     
     match option:
         case 1:
@@ -65,6 +66,39 @@ while True:
             print('***')
             print('')
 
-            job = input('Select task from the list above [number] >> ')
+            # choosing of task
+            print('Tasks:')
+            if(json['task']):
+                for i in range(len(json['task'])):
+                    print('[{}] '.format(i) + json['task'][i]['task'])
 
-            currentTimetable.addEvent(job, who, day, startTime)
+            print('')
+            job = input('Select task from the list above [number] >> ')
+            job = int(job)
+            job = json['task'][job]
+            print('')
+
+            # choosing of person
+            print('Persons:')
+            if(json['person']):
+                for i in range(len(json['person'])):
+                    print('[{}] '.format(i) + json['person'][i]['name'])
+
+            print('')
+            who = input('Assign person to this event [number] >> ')
+            who = int(who)
+            who = json['person'][who]
+            print('')
+
+            # set day for event
+            day = input('Choose day for the event [number] >> ')
+
+            # set start time for event
+            startTime = input('Set start time for the event [number]')
+            startTime = int(startTime)
+
+            # check overlaps
+
+            # add to json
+            newEvent = currentTimetable.addEvent(job, who, day, startTime)
+            utils.writeToJson('timetable', newEvent)

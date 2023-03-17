@@ -1,1 +1,31 @@
-{"timetable": [], "task": [], "person": []}
+{
+  "timetable": [
+    {
+      "task": {
+        "task": "Clean kitchen",
+        "description": "wipe counters, wash dishes and sink",
+        "duration": "1"
+      },
+      "person": { "name": "Jukka", "age": "45" },
+      "day": "3",
+      "start": 8,
+      "status": "wip"
+    }
+  ],
+  "task": [
+    {
+      "task": "Clean kitchen",
+      "description": "wipe counters, wash dishes and sink",
+      "duration": "1"
+    },
+    {
+      "task": "Take trash out",
+      "description": "Take the trash out. Remember to recycle!",
+      "duration": "1"
+    }
+  ],
+  "person": [
+    { "name": "Jukka", "age": "45" },
+    { "name": "Antti", "age": "15" }
+  ]
+}
