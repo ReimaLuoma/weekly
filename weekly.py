@@ -6,7 +6,6 @@ import utils
 # read data from json
 
 json = utils.getDataFromJson()
-print(json['timetable'])
 
 # init timetable
 
@@ -102,3 +101,28 @@ while True:
             # add to json
             newEvent = currentTimetable.addEvent(job, who, day, startTime)
             utils.writeToJson('timetable', newEvent)
+
+        case 4:
+            print('***')
+            print('TIMETABLE')
+            print('***')
+            print('')
+
+            # get latest timetable
+            json = utils.getDataFromJson()
+            currentTimetable = json['timetable']
+
+            # check longest entry in task
+            task_len = utils.checkMaxEntryLen(currentTimetable, 'task')
+            person_len = utils.checkMaxEntryLen(currentTimetable, 'person')
+            status_len = utils.checkMaxEntryLen(currentTimetable, 'status')
+
+            print('START', ' | ', utils.printTextWithMinLen('TASK', task_len), ' | ', utils.printTextWithMinLen('PERSON', person_len), ' | ', utils.printTextWithMinLen('STATUS', status_len))
+            for event in currentTimetable:
+                print(event['start'], ':00', ' | ', event['task']['task'], ' | ', event['person']['name'], ' | ', event['status'])
+            
+            print('')
+
+        case _:
+            print('Not really an option, is it?')
+            print('')

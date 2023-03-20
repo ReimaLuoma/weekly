@@ -1,4 +1,5 @@
 import json
+import math
 
 def generateSubMenu(menu):
 
@@ -94,3 +95,68 @@ def removeDataFromJson(type, item):
     # overwrite with new data
     with open(filename, 'w') as file:
         json.dump(data, file)
+
+def checkMaxEntryLen(currentTimetable, type):
+
+    '''
+    Return the character lenght of the longest object of type in timetable.
+    :param currentTimetable: current timetable to use as base of search
+    :param type: item to check for lenght [str]
+    '''
+
+    max_entry_len = 0
+
+    if type == 'task':
+        for entry in currentTimetable:
+            entry_len = len(entry['task']['task'])
+            if entry_len > max_entry_len:
+                max_entry_len = entry_len
+
+        float(max_entry_len)
+
+    if type == 'person':
+        for entry in currentTimetable:
+            entry_len = len(entry['person']['name'])
+            if entry_len > max_entry_len:
+                max_entry_len = entry_len
+
+        float(max_entry_len)
+
+    if type == 'status':
+        for entry in currentTimetable:
+            entry_len = len(entry['status'])
+            if entry_len > max_entry_len:
+                max_entry_len = entry_len
+
+        float(max_entry_len)
+
+    return max_entry_len
+
+def printTextWithMinLen(text, minLenght):
+
+    '''
+    Returns string with given text and add empty around it until the lenght matches min lenght given.
+    :param text: the text to be printed
+    :param minLenght: min lenght of the print
+    '''
+
+    text_len = len(text)
+    even = False
+    
+    if minLenght %2 == 0:
+        even = True
+
+    if text_len > minLenght:
+        return text
+    else:
+        minLenght -= text_len
+        minLenght /= 2
+        minLenght = math.floor(minLenght)
+
+        # if not even add the missing 1 space from rounding after text
+        if not even:
+            newText = (minLenght * ' ') + text + ((minLenght + 1) * ' ')
+        else:
+            newText = (minLenght * ' ') + text + (minLenght * ' ')
+
+        return newText
