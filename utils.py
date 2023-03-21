@@ -132,12 +132,13 @@ def checkMaxEntryLen(currentTimetable, type):
 
     return max_entry_len
 
-def printTextWithMinLen(text, minLenght):
+def printTextWithMinLen(text, minLenght, header = True):
 
     '''
     Returns string with given text and add empty around it until the lenght matches min lenght given.
     :param text: the text to be printed
     :param minLenght: min lenght of the print
+    :param heaeder: is the text header [bool, default True]
     '''
 
     text_len = len(text)
@@ -146,12 +147,15 @@ def printTextWithMinLen(text, minLenght):
     if minLenght %2 == 0:
         even = True
 
-    if text_len > minLenght:
+    if not header and text_len < minLenght:
+        text_len = minLenght
+
+    if header and text_len > minLenght:
         return text
     else:
         minLenght -= text_len
         minLenght /= 2
-        minLenght = math.floor(minLenght)
+        minLenght = math.ceil(minLenght)
 
         # if not even add the missing 1 space from rounding after text
         if not even:

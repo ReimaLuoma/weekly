@@ -11,6 +11,7 @@ json = utils.getDataFromJson()
 
 currentTimetable = timetable.Timetable('default', 7, 8, 24)
 print(currentTimetable)
+print('')
 
 #print menu
 
@@ -19,6 +20,7 @@ while True:
     print('[2] Add Task')
     print('[3] Create Event')
     print('[4] Show Timetable')
+    print('')
     option = input('Choose action [number] >> ')
     option = int(option)
     print('')
@@ -97,10 +99,29 @@ while True:
             startTime = int(startTime)
 
             # check overlaps
+            timeRange = range(startTime, int(job['duration']))
 
-            # add to json
-            newEvent = currentTimetable.addEvent(job, who, day, startTime)
-            utils.writeToJson('timetable', newEvent)
+            overlapping = False
+
+            for event in json['timetable']:
+                if event['person'] == who:
+                    if event['day'] == day:
+                        if event['start'] in timeRange:
+                            if event['start'] + event['task']['duration'] in timeRange:
+                                overlapping = True
+
+            # add to json if no overlap
+            print(overlapping)
+            if overlapping:
+                print('Person already has another event that overlaps with this one. Cancelling this event...')
+                print('')
+            else:
+                print('Person already has another event that overlaps with this one. Cancelling this event...')
+                print('')
+                newEvent = currentTimetable.addEvent(job, who, day, startTime)
+                utils.writeToJson('timetable', newEvent)
+                print('Event added to timetable.')
+                print('')
 
         case 4:
             print('***')
@@ -118,8 +139,15 @@ while True:
             status_len = utils.checkMaxEntryLen(currentTimetable, 'status')
 
             print('START', ' | ', utils.printTextWithMinLen('TASK', task_len), ' | ', utils.printTextWithMinLen('PERSON', person_len), ' | ', utils.printTextWithMinLen('STATUS', status_len))
+            print('-' * (task_len + person_len + status_len + 3)*2)
             for event in currentTimetable:
-                print(event['start'], ':00', ' | ', event['task']['task'], ' | ', event['person']['name'], ' | ', event['status'])
+
+                if len(str(event['start'])) < 2:
+                    newTime = '0' + str(event['start']) + ':00'
+                else:
+                    newTime = str(event['start']) + ':00'
+
+                print(utils.printTextWithMinLen(newTime, 4, False), ' | ', utils.printTextWithMinLen(event['task']['task'], 5, False), ' | ', utils.printTextWithMinLen(event['person']['name'], 7, False), ' | ', event['status'])
             
             print('')
 
