@@ -106,14 +106,15 @@ while True:
             startTime = int(startTime)
 
             # check overlaps
-            timeRange = range(startTime, int(job['duration']))
+            timeRange = range(startTime, startTime + int(job['duration']))
+            print(timeRange)
 
             overlapping = False
 
             for day in json['timetable']:
                 tasks = json['timetable'][day]
                 for entry in tasks:
-                    if entry['person']['name'] == who:
+                    if entry['person']['name'] == who['name']:
                         if entry['start'] in timeRange or entry['start'] + int(entry['task']['duration']) in timeRange:
                                 overlapping = True
 
