@@ -100,16 +100,33 @@ while True:
                 print('[{}] '.format(i) + entry)
                 i+=1
             print('')
-            day = input('Choose day for the event [number] >> ')
-            day = days[int(day)]
+
+            while True:
+                try:
+                    day = int(input('Choose day for the event [number] >> '))
+                except ValueError:
+                    print('Your choice needs to be number.')
+                    continue
+                else:
+                    break
+
+            day = days[day]
 
             # set start time for event
-            startTime = input('Set start time for the event [number] >> ')
-            startTime = int(startTime)
+            while True:
+                try:
+                    startTime = int(input('Set start time for the event [number] >> '))
+                    if startTime not in range(currentTimetable.start, currentTimetable.end):
+                        print('Timetable currently accept only events between {} and {}.'.format(currentTimetable.start, currentTimetable.end))
+                        continue
+                except ValueError:
+                    print('Your choice needs to be number.')
+                    continue
+                else:
+                    break
 
             # check overlaps
             timeRange = range(startTime, startTime + int(job['duration']))
-            print(timeRange)
 
             overlapping = False
 
