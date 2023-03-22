@@ -92,10 +92,17 @@ while True:
             print('')
 
             # set day for event
+            days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+            i = 0
+            for entry in days:
+                print('[{}] '.format(i) + entry)
+                i+=1
+            print('')
             day = input('Choose day for the event [number] >> ')
+            day = days[int(day)]
 
             # set start time for event
-            startTime = input('Set start time for the event [number]')
+            startTime = input('Set start time for the event [number] >> ')
             startTime = int(startTime)
 
             # check overlaps
@@ -103,23 +110,19 @@ while True:
 
             overlapping = False
 
-            for event in json['timetable']:
-                if event['person'] == who:
-                    if event['day'] == day:
-                        if event['start'] in timeRange:
-                            if event['start'] + event['task']['duration'] in timeRange:
+            for day in json['timetable']:
+                tasks = json['timetable'][day]
+                for entry in tasks:
+                    if entry['person']['name'] == who:
+                        if entry['start'] in timeRange or entry['start'] + int(entry['task']['duration']) in timeRange:
                                 overlapping = True
 
             # add to json if no overlap
-            print(overlapping)
             if overlapping:
                 print('Person already has another event that overlaps with this one. Cancelling this event...')
                 print('')
             else:
-                print('Person already has another event that overlaps with this one. Cancelling this event...')
-                print('')
-                newEvent = currentTimetable.addEvent(job, who, day, startTime)
-                utils.writeToJson('timetable', newEvent)
+                currentTimetable.addEvent(job, who, day, startTime)
                 print('Event added to timetable.')
                 print('')
 
@@ -138,17 +141,20 @@ while True:
             person_len = utils.checkMaxEntryLen(currentTimetable, 'person')
             status_len = utils.checkMaxEntryLen(currentTimetable, 'status')
 
-            print('START', ' | ', utils.printTextWithMinLen('TASK', task_len), ' | ', utils.printTextWithMinLen('PERSON', person_len), ' | ', utils.printTextWithMinLen('STATUS', status_len))
-            print('-' * (task_len + person_len + status_len + 3)*2)
-            for event in currentTimetable:
+            # print headers
+            print(utils.printTextWithMinLen('DAY', 5), ' | ', 'START', ' | ', utils.printTextWithMinLen('TASK', task_len), ' | ', utils.printTextWithMinLen('PERSON', person_len), ' | ', utils.printTextWithMinLen('STATUS', status_len))
+            print('-' * (task_len + person_len + status_len + 8)*2)
 
-                if len(str(event['start'])) < 2:
-                    newTime = '0' + str(event['start']) + ':00'
-                else:
-                    newTime = str(event['start']) + ':00'
+            for day in currentTimetable:
+                tasks = currentTimetable[day]
+                for entry in tasks:
+                    if len(str(entry['start'])) < 2:
+                        newTime = '0' + str(entry['start']) + ':00'
+                    else:
+                        newTime = str(entry['start']) + ':00'
 
-                print(utils.printTextWithMinLen(newTime, 4, False), ' | ', utils.printTextWithMinLen(event['task']['task'], 5, False), ' | ', utils.printTextWithMinLen(event['person']['name'], 7, False), ' | ', event['status'])
-            
+                    print(utils.printTextWithMinLen(day, 2, False), ' | ', utils.printTextWithMinLen(newTime, 2, False), ' | ', utils.printTextWithMinLen(entry['task']['task'], task_len, False), ' | ', utils.printTextWithMinLen(entry['person']['name'], 6, False), ' | ', entry['status'])
+
             print('')
 
         case _:

@@ -107,26 +107,33 @@ def checkMaxEntryLen(currentTimetable, type):
     max_entry_len = 0
 
     if type == 'task':
-        for entry in currentTimetable:
-            entry_len = len(entry['task']['task'])
-            if entry_len > max_entry_len:
-                max_entry_len = entry_len
+
+        for day in currentTimetable:
+            tasks = currentTimetable[day]
+            for entry in tasks:
+                entry_len = len(entry['task']['task'])
+                if entry_len > max_entry_len:
+                    max_entry_len = entry_len
 
         float(max_entry_len)
 
     if type == 'person':
-        for entry in currentTimetable:
-            entry_len = len(entry['person']['name'])
-            if entry_len > max_entry_len:
-                max_entry_len = entry_len
+        for day in currentTimetable:
+            tasks = currentTimetable[day]
+            for entry in tasks:
+                entry_len = len(entry['person']['name'])
+                if entry_len > max_entry_len:
+                    max_entry_len = entry_len
 
         float(max_entry_len)
 
     if type == 'status':
-        for entry in currentTimetable:
-            entry_len = len(entry['status'])
-            if entry_len > max_entry_len:
-                max_entry_len = entry_len
+        for day in currentTimetable:
+            tasks = currentTimetable[day]
+            for entry in tasks:
+                entry_len = len(entry['status'])
+                if entry_len > max_entry_len:
+                    max_entry_len = entry_len
 
         float(max_entry_len)
 
@@ -143,24 +150,37 @@ def printTextWithMinLen(text, minLenght, header = True):
 
     text_len = len(text)
     even = False
-    
-    if minLenght %2 == 0:
+
+    # check if lenght is even or odd number
+    if text_len %2 == 0:
         even = True
 
-    if not header and text_len < minLenght:
-        text_len = minLenght
+    # handle header elements
 
-    if header and text_len > minLenght:
-        return text
-    else:
+    if header:
+        if text_len > minLenght:
+            return text
+        if text_len < minLenght:
+            minLenght -= text_len
+            minLenght /= 2
+            minLenght = math.floor(minLenght)
+            if not even:
+                newText = (minLenght * ' ') + text + ((minLenght + 1) * ' ')
+            else:
+                newText = (minLenght * ' ') + text + (minLenght * ' ')
+
+        return newText
+    
+
+    # handle non-header elements
+
+    if not header:
         minLenght -= text_len
         minLenght /= 2
-        minLenght = math.ceil(minLenght)
-
-        # if not even add the missing 1 space from rounding after text
+        minLenght = math.floor(minLenght)
         if not even:
             newText = (minLenght * ' ') + text + ((minLenght + 1) * ' ')
         else:
             newText = (minLenght * ' ') + text + (minLenght * ' ')
-
+            
         return newText
