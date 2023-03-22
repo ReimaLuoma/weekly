@@ -1,1 +1,50 @@
-{"timetable": {"monday": [{"task": {"task": "Clean kitchen", "description": "wipe counters, wash dishes and sink", "duration": "1"}, "person": {"name": "Jukka", "age": "45"}, "start": 6, "status": "wip"}], "tuesday": [], "wednesday": [], "thursday": [], "friday": [], "saturday": [], "sunday": [{"task": {"task": "Take trash out", "description": "Take the trash out. Remember to recycle!", "duration": "1"}, "person": {"name": "Maija-Liina", "age": "24"}, "start": 10, "status": "wip"}, {"task": {"task": "Take trash out", "description": "Take the trash out. Remember to recycle!", "duration": "1"}, "person": {"name": "Antti", "age": "15"}, "start": 6, "status": "wip"}, {"task": {"task": "Take trash out", "description": "Take the trash out. Remember to recycle!", "duration": "1"}, "person": {"name": "Maija-Liina", "age": "24"}, "start": 9, "status": "wip"}]}, "task": [{"task": "Clean kitchen", "description": "wipe counters, wash dishes and sink", "duration": "1"}, {"task": "Take trash out", "description": "Take the trash out. Remember to recycle!", "duration": "1"}], "person": [{"name": "Jukka", "age": "45"}, {"name": "Antti", "age": "15"}, {"name": "Maija-Liina", "age": "24"}]}
+{
+  "timetable": {
+    "monday": [],
+    "tuesday": [],
+    "wednesday": [],
+    "thursday": [],
+    "friday": [
+      {
+        "task": {
+          "task": "Take trash out",
+          "description": "Take the trash out. Remember to recycle!",
+          "duration": "1"
+        },
+        "person": { "name": "Antti", "age": "15" },
+        "start": 14,
+        "status": "wip"
+      }
+    ],
+    "saturday": [],
+    "sunday": [
+      {
+        "task": {
+          "task": "Take trash out",
+          "description": "Take the trash out. Remember to recycle!",
+          "duration": "1"
+        },
+        "person": { "name": "Maija-Liina", "age": "24" },
+        "start": 23,
+        "status": "wip"
+      }
+    ]
+  },
+  "task": [
+    {
+      "task": "Clean kitchen",
+      "description": "wipe counters, wash dishes and sink",
+      "duration": "1"
+    },
+    {
+      "task": "Take trash out",
+      "description": "Take the trash out. Remember to recycle!",
+      "duration": "1"
+    }
+  ],
+  "person": [
+    { "name": "Jukka", "age": "45" },
+    { "name": "Antti", "age": "15" },
+    { "name": "Maija-Liina", "age": "24" }
+  ]
+}

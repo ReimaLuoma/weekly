@@ -3,19 +3,15 @@ import person
 import task
 import utils
 
-# read data from json
-
-json = utils.getDataFromJson()
-
 # init timetable
 
 currentTimetable = timetable.Timetable('default', 7, 8, 24)
-print(currentTimetable)
 print('')
 
 #print menu
 
 while True:
+    json = utils.getDataFromJson()
     print('[1] Add Person')
     print('[2] Add Task')
     print('[3] Create Event')
@@ -104,6 +100,9 @@ while True:
             while True:
                 try:
                     day = int(input('Choose day for the event [number] >> '))
+                    if day not in range(0, len(days)):
+                        print('You choice need to be between 0 and {}.'.format(len(days)))
+                        continue
                 except ValueError:
                     print('Your choice needs to be number.')
                     continue
@@ -116,6 +115,7 @@ while True:
             while True:
                 try:
                     startTime = int(input('Set start time for the event [number] >> '))
+                    print(currentTimetable)
                     if startTime not in range(currentTimetable.start, currentTimetable.end):
                         print('Timetable currently accept only events between {} and {}.'.format(currentTimetable.start, currentTimetable.end))
                         continue
@@ -130,8 +130,8 @@ while True:
 
             overlapping = False
 
-            for day in json['timetable']:
-                tasks = json['timetable'][day]
+            for dayEntry in json['timetable']:
+                tasks = json['timetable'][dayEntry]
                 for entry in tasks:
                     if entry['person']['name'] == who['name']:
                         if entry['start'] in timeRange or entry['start'] + int(entry['task']['duration']) in timeRange:
@@ -155,19 +155,19 @@ while True:
 
             # get latest timetable
             json = utils.getDataFromJson()
-            currentTimetable = json['timetable']
+            current = json['timetable']
 
             # check longest entry in task
-            task_len = utils.checkMaxEntryLen(currentTimetable, 'task')
-            person_len = utils.checkMaxEntryLen(currentTimetable, 'person')
-            status_len = utils.checkMaxEntryLen(currentTimetable, 'status')
+            task_len = utils.checkMaxEntryLen(current, 'task')
+            person_len = utils.checkMaxEntryLen(current, 'person')
+            status_len = utils.checkMaxEntryLen(current, 'status')
 
             # print headers
             print(utils.printTextWithMinLen('DAY', 5), ' | ', 'START', ' | ', utils.printTextWithMinLen('TASK', task_len), ' | ', utils.printTextWithMinLen('PERSON', person_len), ' | ', utils.printTextWithMinLen('STATUS', status_len))
             print('-' * (task_len + person_len + status_len + 8)*2)
 
-            for day in currentTimetable:
-                tasks = currentTimetable[day]
+            for day in current:
+                tasks = current[day]
                 for entry in tasks:
                     if len(str(entry['start'])) < 2:
                         newTime = '0' + str(entry['start']) + ':00'
