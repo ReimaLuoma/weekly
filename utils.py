@@ -163,7 +163,7 @@ def printTextWithMinLen(text, minLenght, header = True):
         if text_len < minLenght:
             minLenght -= text_len
             minLenght /= 2
-            minLenght = math.floor(minLenght)
+            minLenght = math.ceil(minLenght)
             if not even:
                 newText = (minLenght * ' ') + text + ((minLenght + 1) * ' ')
             else:

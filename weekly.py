@@ -39,6 +39,7 @@ while True:
             print(newperson)
 
             utils.writeToJson('person', newperson.toObject())
+            json = utils.getDataFromJson()
 
             print('')
             print('***')
@@ -57,6 +58,7 @@ while True:
             print(newTask)
 
             utils.writeToJson('task', newTask.toObject())
+            json = utils.getDataFromJson()
 
             print('')
             print('***')
@@ -126,6 +128,7 @@ while True:
                 currentTimetable.addEvent(job, who, day, startTime)
                 print('Event added to timetable.')
                 print('')
+            json = utils.getDataFromJson()
 
         case 4:
             print('***')
@@ -154,7 +157,7 @@ while True:
                     else:
                         newTime = str(entry['start']) + ':00'
 
-                    print(utils.printTextWithMinLen(day, 2, False), ' | ', utils.printTextWithMinLen(newTime, 2, False), ' | ', utils.printTextWithMinLen(entry['task']['task'], task_len, False), ' | ', utils.printTextWithMinLen(entry['person']['name'], 6, False), ' | ', entry['status'])
+                    print(utils.printTextWithMinLen(day, 2, False), ' | ', utils.printTextWithMinLen(newTime, 2, False), ' | ', utils.printTextWithMinLen(entry['task']['task'], task_len, False), ' | ', utils.printTextWithMinLen(entry['person']['name'], person_len, False), ' | ', entry['status'])
 
             print('')
 
