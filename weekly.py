@@ -16,15 +16,27 @@ while True:
     print('[2] Add Task')
     print('[3] Create Event')
     print('[4] Show Timetable')
+    print('[5] Show Persons')
     print('')
-    option = input('Choose action [number] >> ')
-    option = int(option)
+
+    while True:
+        try:
+            option = int(input('Choose action [number] >> '))
+            if option not in range(1,6):
+                print('Your choice needs to be between 1 and 5.')
+                continue
+        except ValueError:
+            print('Your choice needs to be a number.')
+            continue
+        else:
+            break
+
     print('')
     
     match option:
         case 1:
             print('***')
-            print('CREATE PERSON')
+            print('ADD PERSON')
             print('***')
             print('')
 
@@ -175,6 +187,19 @@ while True:
                         newTime = str(entry['start']) + ':00'
 
                     print(utils.printTextWithMinLen(day, 2, False), ' | ', utils.printTextWithMinLen(newTime, 2, False), ' | ', utils.printTextWithMinLen(entry['task']['task'], task_len, False), ' | ', utils.printTextWithMinLen(entry['person']['name'], person_len, False), ' | ', entry['status'])
+
+            print('')
+
+        case 5:
+            print('***')
+            print('PERSONS')
+            print('***')
+            print('')
+
+            json = utils.getDataFromJson()
+
+            for ind in json['person']:
+                print('{} ({})'.format(ind['name'], ind['age']))
 
             print('')
 
